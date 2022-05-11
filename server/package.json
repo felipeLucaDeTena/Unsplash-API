@@ -1,0 +1,12 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "json-server -p3001 db.json --watch"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

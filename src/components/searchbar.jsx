@@ -34,7 +34,14 @@ function SearchBar() {
         label="Search Photos"
         variant="outlined"
       />
+
       {isSearching && <div>Searching ...</div>}
+      {results.map((result) => (
+        <div key={result.id}>
+          <h4>{result.title}</h4>
+          <img src={result.urls.small} alt="none" />
+        </div>
+      ))}
     </div>
   );
 }
