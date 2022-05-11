@@ -1,6 +1,9 @@
 import { actionTypes } from "./action-types";
 
-export function photosReducer(state = [], action) {
+export function photosReducer(
+  state = { photos: [], favouritePhotos: [] },
+  action
+) {
   switch (action.type) {
     case actionTypes.load:
       return { ...state, photos: [...action.payload] };
@@ -28,6 +31,7 @@ export function photosReducer(state = [], action) {
           item.id === action.payload.id ? action.payload : item
         ),
       };
+
     default:
       return state;
   }

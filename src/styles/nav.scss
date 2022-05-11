@@ -1,0 +1,22 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: darksalmon;
+  color: white;
+  height: 10vh;
+
+  &__logo {
+    font-size: 4em;
+    &__container {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__links {
+    text-decoration: none;
+    color: white;
+    font-size: 1.3rem;
+    margin: 0 2rem;
+  }
+}

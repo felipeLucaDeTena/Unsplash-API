@@ -1,5 +1,6 @@
 import axios from "axios";
-
+const RANDOM__URL =
+  "https://api.unsplash.com/photos/random?client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI";
 const UNSPLASH_URL =
   "https://api.unsplash.com/photos/?client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI&per_page=30";
 
@@ -8,6 +9,16 @@ const LOCAL_URL = "http://localhost:3001/photos";
 export async function getHomePhotos() {
   return axios.get(UNSPLASH_URL);
 }
+
+export async function getQueryPhotos(query) {
+  const QUERY__URL = `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI&per_page=30`;
+  return axios.get(QUERY__URL);
+}
+
+export async function getRandomPhotos() {
+  return axios.get(RANDOM__URL);
+}
+
 export async function getFavoritePhotos() {
   return axios.get(LOCAL_URL);
 }
