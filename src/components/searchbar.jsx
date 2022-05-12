@@ -2,21 +2,20 @@ import { TextField } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import { getQueryPhotos } from "../services/api";
 
-function SearchBar() {
+function SearchBar({ setData, data }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       setIsSearching(true);
-      getQueryPhotos(debouncedSearchTerm).then((results) => {
+      getQueryPhotos(debouncedSearchTerm).then((resp) => {
         setIsSearching(false);
-        setResults(results);
+        setData(resp.data);
       });
     } else {
-      setResults([]);
+      setData([]);
       setIsSearching(false);
     }
   }, [debouncedSearchTerm]);
@@ -36,12 +35,6 @@ function SearchBar() {
       />
 
       {isSearching && <div>Searching ...</div>}
-      {results.map((result) => (
-        <div key={result.id}>
-          <h4>{result.title}</h4>
-          <img src={result.urls.small} alt="none" />
-        </div>
-      ))}
     </div>
   );
 }

@@ -6,12 +6,12 @@ import footer from "../styles/footer.scss";
 function Footer() {
   return (
     <Box className="footer">
-      <Box></Box>
+      <Box />
       <Box>
         <RiCameraLensLine className="nav__logo" />
         <p>Splash</p>
       </Box>
-      <Box></Box>
+      <Box />
     </Box>
   );
 }

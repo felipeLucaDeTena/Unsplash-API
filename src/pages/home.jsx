@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  getHomePhotos,
-  getQueryPhotos,
-  getRandomPhotos,
-} from "../services/api";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import SearchBar from "../components/searchbar";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPhotos } from "../redux/action-creators";
+import SearchBar from "../components/searchbar";
+import * as api from "../services/api";
+import * as actions from "../redux/action-creators";
 import PhotosList from "../components/photoslist";
-import home from "../styles/home.scss";
 import SelectComponent from "../components/select";
 import RandomPhoto from "../components/randomphoto";
+import home from "../styles/home.scss";
+import { Photo } from "../data/model";
 
 function Home() {
-  const photoState = useSelector((state) => state.photos);
+  const [favourite, setFavourite] = useState(new Photo());
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState([]);
@@ -27,10 +19,8 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getRandomPhotos().then((resp) => {
-      return setRandom(resp.data);
-    });
-    getHomePhotos().then((resp) => {
+    api.getRandomPhotos().then((resp) => setRandom(resp.data));
+    api.getHomePhotos().then((resp) => {
       setData(resp.data);
     });
   }, []);
@@ -56,21 +46,27 @@ function Home() {
     setData(newData);
   }
 
+  const handleLike = (photo) => {
+    console.log(photo);
+    api.addFavouritePhoto(photo).then(() => {
+      dispatch(actions.addPhoto());
+    });
+  };
+
   return (
     <>
       <RandomPhoto random={random} />
-      <Box className="search__container">
+      <div id="search" className="search__container">
         <SearchBar
           searchTearm={searchTerm}
           setSearchTearm={setSearchTerm}
-        ></SearchBar>
-        <SelectComponent
-          sortType={sortType}
-          setSortType={setSortType}
-        ></SelectComponent>
-      </Box>
+          data={data}
+          setData={setData}
+        />
+        <SelectComponent sortType={sortType} setSortType={setSortType} />
+      </div>
 
-      {data && <PhotosList data={data} />}
+      {data && <PhotosList handleLike={handleLike} data={data} />}
     </>
   );
 }

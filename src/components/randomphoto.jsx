@@ -1,9 +1,10 @@
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import React from "react";
+import { HashLink } from "react-router-hash-link";
 
 function RandomPhoto({ random }) {
   return (
-    <>
+    <HashLink smooth to="/home/#search">
       {random && (
         <Box className="home__randomphoto__container">
           <Box
@@ -18,7 +19,7 @@ function RandomPhoto({ random }) {
           </Box>
         </Box>
       )}
-    </>
+    </HashLink>
   );
 }
 

@@ -1,6 +1,8 @@
+import { Photo } from "../data/model";
 import { actionTypes } from "./action-types";
 
 export function photosReducer(
+  // eslint-disable-next-line default-param-last
   state = { photos: [], favouritePhotos: [] },
   action
 ) {
