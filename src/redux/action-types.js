@@ -3,5 +3,5 @@ export const actionTypes = {
   addFavourite: "@photos/addfavourite",
   loadFavourites: "photos/loadfavourite",
   deleteFavourite: "photos/deletefavourite",
-  updateFavourites: "photos/updatefavourite",
+  updateFavourite: "photos/updatefavourite",
 };

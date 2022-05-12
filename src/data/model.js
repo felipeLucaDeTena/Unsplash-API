@@ -3,6 +3,8 @@ export class Photo {
 
   urls;
 
+  user;
+
   likes;
 
   created_at;
@@ -11,13 +13,17 @@ export class Photo {
 
   downloads;
 
+  comment;
+
   constructor(
     id = "",
     urls = {},
+    user = {},
     likes = 0,
     date = "",
     views = 0,
-    downloads = 0
+    downloads = 0,
+    comment = ""
   ) {
     this.id = id;
     this.urls = urls.small;
@@ -25,5 +31,7 @@ export class Photo {
     this.created_at = date;
     this.views = views;
     this.downloads = downloads;
+    this.comment = comment;
+    this.user = user;
   }
 }

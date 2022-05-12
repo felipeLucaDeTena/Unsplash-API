@@ -1,0 +1,29 @@
+.details {
+  height: 40vw;
+  width: 60vw;
+  background-color: rgba(0, 0, 0, 0.725);
+  display: flex;
+  align-items: center;
+
+  border: 4px solid darksalmon;
+  &__img {
+    width: 40%;
+    margin-left: 10%;
+  }
+  &__info {
+    color: white;
+    font-size: 1rem;
+    margin-left: 10%;
+  }
+  &__title {
+    color: darksalmon;
+  }
+  &__button {
+    display: block;
+    background-color: transparent;
+    color: darksalmon;
+    border-radius: 50%;
+    border: 1px solid darksalmon;
+    margin: 10px 10px auto auto;
+  }
+}

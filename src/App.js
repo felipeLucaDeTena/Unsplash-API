@@ -11,6 +11,7 @@ function App() {
     <div className="App">
       <Nav />
       <Routes>
+        <Route path="/home/:id" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/favourites" element={<Favourites />} />
         <Route path="/albums" element={<Albums />} />

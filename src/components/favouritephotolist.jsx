@@ -2,24 +2,12 @@ import { Masonry } from "@mui/lab";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Box } from "@mui/material";
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
-function PhotosList({ setButtonPopUp, data, handleLike }) {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const handleClick = (photo) => {
-    navigate(photo.id);
-    setButtonPopUp(true);
-  };
-  console.log("im the id", id);
+function FavouritePhotosList({ data, handleLike }) {
   return (
     <Masonry sx={{ margin: 0 }} columns={4} spacing={2}>
       {data.map((photo) => (
-        <Box
-          onClick={() => handleClick(photo)}
-          key={photo.id}
-          className="home__img__container"
-        >
+        <Box key={photo.id} className="home__img__container">
           <Box
             className="home__img"
             component="img"
@@ -49,4 +37,4 @@ function PhotosList({ setButtonPopUp, data, handleLike }) {
   );
 }
 
-export default PhotosList;
+export default FavouritePhotosList;
