@@ -1,18 +1,12 @@
 import { Box } from "@mui/material";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getDetail } from "../services/api";
-import details from "../styles/details.scss";
+import React from "react";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import DeleteIcon from "@mui/icons-material/Delete";
+import details from "../../styles/details.scss";
 
-function Detail({ setButtonPopUp, photo }) {
-  const [detail, setDetail] = useState("");
-  const { id } = useParams();
-  useEffect(() => {
-    getDetail(id).then((resp) => setDetail(resp.data));
-  }, [id]);
-
-  console.log(detail);
+function Detail({ detail, handleLike, setButtonPopUp }) {
+  const date = new Date(detail.created_at);
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
@@ -20,12 +14,25 @@ function Detail({ setButtonPopUp, photo }) {
       {detail ? (
         <Box className="details">
           <img className="details__img" src={detail.urls.small} alt="none" />
-
           <Box className="details__info__container">
+            {detail.isFavourite ? (
+              <div className="delete__container">
+                <span>Delete from Favourites</span> <DeleteIcon />
+              </div>
+            ) : (
+              <Box className=" details__info details__info__like">
+                Add to Favourites
+                <FavoriteBorderIcon
+                  onClick={() => handleLike(detail)}
+                  className="details__heart-icon"
+                />
+              </Box>
+            )}
+
             <Box className="details__info">
               <h3 className="details__title">User Details</h3>
               <p>Name : {detail.user.name || "Undefined"}</p>
-              <p>Date: {moment().format(detail.created_at) || "Undefined"}</p>
+              <p>Date: {moment(date).format("MMM Do YY") || "Undefined"}</p>
               <p>Location : {detail.location.country || "Undefined"}</p>
             </Box>
             <Box className="details__info">
@@ -42,19 +49,6 @@ function Detail({ setButtonPopUp, photo }) {
           >
             x
           </button>
-          {/* <img src={detail.urls.regular} alt="none" />
-          <Box>
-            <p>User Details</p>
-            <p>{detail.user.name}</p>
-            <p>{detail.created_at}</p>
-            <p>{detail.location.city}</p>
-            <Box>
-              <p>Camera Details</p>
-              <p>{detail.exif.name}</p>
-              <p>{detail.exif.exposure_time}</p>
-              <p>{detail.exif.iso}</p>
-            </Box>
-          </Box> */}
         </Box>
       ) : (
         ""

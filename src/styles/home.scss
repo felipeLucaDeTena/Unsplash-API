@@ -1,6 +1,6 @@
 .home {
   &__heart-icon {
-    font-size: 30px;
+    font-size: 1.6rem;
     &:hover {
       color: darksalmon;
     }
@@ -69,4 +69,7 @@
     align-items: center;
     justify-content: center;
   }
+}
+.delete__container {
+  margin-left: auto;
 }

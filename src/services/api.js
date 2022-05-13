@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const RANDOM__URL =
-  "https://api.unsplash.com/photos/random?client_id=I7TjMs6hCnXz823vVzGbIjMaatDdvdARQZ4ycNO_6h8";
+  "https://api.unsplash.com/photos/random?client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI";
 const UNSPLASH_URL =
   "https://api.unsplash.com/photos/?client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI&per_page=30";
 
@@ -28,7 +28,17 @@ export async function addFavouritePhoto(photo) {
   return axios.post(LOCAL_URL, photo);
 }
 export async function getDetail(id) {
-  const DETAILS_URL = `https://api.unsplash.com/photos/${id}/?client_id=I7TjMs6hCnXz823vVzGbIjMaatDdvdARQZ4ycNO_6h8`;
+  const DETAILS_URL = `https://api.unsplash.com/photos/${id}/?client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI`;
+
+  return axios.get(DETAILS_URL);
+}
+export async function getFavouriteDetail(id) {
+  const LOCAL__DETAILS_URL = `http://localhost:3001/photos/${id}`;
+
+  return axios.get(LOCAL__DETAILS_URL);
+}
+export async function getUser(user) {
+  const DETAILS_URL = `https://api.unsplash.com/users/${user}/?client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI`;
 
   return axios.get(DETAILS_URL);
 }

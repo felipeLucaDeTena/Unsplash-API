@@ -11,9 +11,11 @@ import home from "../styles/home.scss";
 import { Photo } from "../data/model";
 import sortPhotos from "../helpers/sort";
 import Popup from "../components/popup";
-import Detail from "../components/details";
+import Detail from "../components/details/details";
+import HomeDetails from "../components/details/homedetails";
 
 function Home() {
+  const [photoId, setPhotoId] = useState("");
   const [buttonPopUp, setButtonPopUp] = useState(false);
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,7 +34,8 @@ function Home() {
   }, [searchTerm, sortType]);
 
   const handleLike = (photo) => {
-    api.addFavouritePhoto(photo);
+    const newPhoto = { ...photo };
+    api.addFavouritePhoto({ ...newPhoto, comment: "", isFavourite: true });
   };
 
   return (
@@ -50,13 +53,18 @@ function Home() {
 
       {data && (
         <PhotosList
+          setPhotoId={setPhotoId}
           setButtonPopUp={setButtonPopUp}
           handleLike={handleLike}
           data={data}
         />
       )}
       <Popup trigger={buttonPopUp}>
-        <Detail setButtonPopUp={setButtonPopUp} />
+        <HomeDetails
+          photoId={photoId}
+          handleLike={handleLike}
+          setButtonPopUp={setButtonPopUp}
+        />
       </Popup>
     </>
   );

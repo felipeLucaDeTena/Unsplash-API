@@ -7,13 +7,14 @@ import SearchBar from "../components/searchbar";
 import SelectComponent from "../components/select";
 import sortPhotos from "../helpers/sort";
 import Popup from "../components/popup";
+import FavouriteDetails from "../components/details/favouritedetails";
 
 function Favourites() {
   const [buttonPopUp, setButtonPopUp] = useState(false);
+  const [photoId, setPhotoId] = useState("");
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState([]);
-  const [random, setRandom] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,8 +45,20 @@ function Favourites() {
         />
         <SelectComponent sortType={sortType} setSortType={setSortType} />
       </div>
-      {data && <PhotosList setButtonPopUp={setButtonPopUp} data={data} />}
-      <Popup trigger={buttonPopUp} />
+      {data && (
+        <PhotosList
+          setPhotoId={setPhotoId}
+          setButtonPopUp={setButtonPopUp}
+          data={data}
+        />
+      )}
+      <Popup trigger={buttonPopUp}>
+        <FavouriteDetails
+          photoId={photoId}
+          handleDelete={handleDelete}
+          setButtonPopUp={setButtonPopUp}
+        />
+      </Popup>
     </>
   );
 }

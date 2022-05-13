@@ -1,17 +1,16 @@
 import { Masonry } from "@mui/lab";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DownloadIcon from "@mui/icons-material/Download";
 import { Box } from "@mui/material";
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
 
-function PhotosList({ setButtonPopUp, data, handleLike }) {
-  const navigate = useNavigate();
-  const { id } = useParams();
+function PhotosList({ setPhotoId, setButtonPopUp, data, handleLike }) {
   const handleClick = (photo) => {
-    navigate(photo.id);
+    setPhotoId(photo.id);
     setButtonPopUp(true);
   };
-  console.log("im the id", id);
+
   return (
     <Masonry sx={{ margin: 0 }} columns={4} spacing={2}>
       {data.map((photo) => (
@@ -27,8 +26,14 @@ function PhotosList({ setButtonPopUp, data, handleLike }) {
             src={photo.urls.small}
           />
           <Box className="home__img__overlay">
+            {photo.isFavourite && (
+              <div className="delete__container">
+                <span>Delete</span> <DeleteIcon />
+              </div>
+            )}
             <p style={{ margin: "20% 0 0 0" }}>By</p>
             <p>{photo.user.name}</p>
+            {photo.isFavourite && <span>{photo.comment}</span>}
             <Box
               sx={{
                 display: "flex",
@@ -36,7 +41,7 @@ function PhotosList({ setButtonPopUp, data, handleLike }) {
                 margin: "auto  20px 20px auto",
               }}
             >
-              <p>{photo.likes}</p>
+              <DownloadIcon />
               <FavoriteBorderIcon
                 onClick={() => handleLike(photo)}
                 className="home__heart-icon"
