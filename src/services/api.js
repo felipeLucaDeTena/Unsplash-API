@@ -5,7 +5,7 @@ const RANDOM__URL =
 const UNSPLASH_URL =
   "https://api.unsplash.com/photos/?client_id=6haNOSOrqVhRE77ErSFNZZdBasF0OL2rTb0oXgZbvqI&per_page=30";
 
-const LOCAL_URL = "http://localhost:3001/photos";
+const LOCAL_URL = "http://localhost:3001/photos/";
 
 export async function getHomePhotos() {
   return axios.get(UNSPLASH_URL);
@@ -47,5 +47,5 @@ export async function deleteFavoritePhoto(id) {
   return axios.delete(LOCAL_URL + id);
 }
 export async function commentFavoritePhoto(id, comment) {
-  return axios.patch(LOCAL_URL + id, { comment });
+  return axios.patch(LOCAL_URL + id, comment);
 }

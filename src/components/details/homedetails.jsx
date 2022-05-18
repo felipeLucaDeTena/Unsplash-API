@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { getDetail } from "../../services/api";
 import Detail from "./details";
 

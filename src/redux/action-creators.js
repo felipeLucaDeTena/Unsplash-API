@@ -1,26 +1,26 @@
 import { actionTypes } from "./action-types";
 import * as api from "../services/api";
 
-export const loadPhotos = (photos) => ({
+export const load = (photos) => ({
   type: actionTypes.load,
   payload: photos,
 });
 
-export const loadFavouritesPhotos = (photos) => ({
+export const loadFavourites = (photos) => ({
   type: actionTypes.loadFavourites,
   payload: photos,
 });
 
-export const addPhoto = (photo) => ({
-  type: actionTypes.addFavourites,
+export const addFavourite = (photo) => ({
+  type: actionTypes.addFavourite,
   payload: photo,
 });
-export const removePhoto = (photo) => ({
+export const deleteFavourite = (photo) => ({
   type: actionTypes.deleteFavourite,
   payload: photo,
 });
 
-export const updatePhoto = (photo) => ({
+export const updateFavourite = (photo) => ({
   type: actionTypes.updateFavourite,
   payload: photo,
 });

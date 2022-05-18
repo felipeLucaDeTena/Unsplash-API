@@ -2,12 +2,22 @@ import { Box } from "@mui/material";
 import moment from "moment";
 import React from "react";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import EditIcon from "@mui/icons-material/Edit";
+import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Toaster } from "react-hot-toast";
 import details from "../../styles/details.scss";
 
-function Detail({ detail, handleLike, setButtonPopUp }) {
+function Detail({
+  toggleEditing,
+  isEditing,
+  handleDelete,
+  detail,
+  handleLike,
+  setButtonPopUp,
+  handleUpdate,
+}) {
   const date = new Date(detail.created_at);
-
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
@@ -16,16 +26,56 @@ function Detail({ detail, handleLike, setButtonPopUp }) {
           <img className="details__img" src={detail.urls.small} alt="none" />
           <Box className="details__info__container">
             {detail.isFavourite ? (
-              <div className="delete__container">
-                <span>Delete from Favourites</span> <DeleteIcon />
-              </div>
+              <>
+                <Box className=" details__info ">
+                  <Box
+                    className="details__button__container"
+                    onClick={() => toggleEditing()}
+                  >
+                    Edit Comments
+                    <EditIcon className=" details__icon" />
+                  </Box>
+                  <Box
+                    className="details__button__container"
+                    onClick={() => handleDelete(detail)}
+                  >
+                    Delete From favourites
+                    <DeleteIcon className=" details__icon" />
+                  </Box>
+                </Box>
+                {isEditing ? (
+                  <Box className="details__info">
+                    <h3 className="details__title">Comments</h3>
+                    <form>
+                      <input
+                        className="details__edit"
+                        type="text"
+                        onChange={(ev) => handleUpdate(ev, detail)}
+                        defaultValue={detail.comment}
+                      />
+                    </form>
+                  </Box>
+                ) : (
+                  <Box className="details__info">
+                    <h3 className="details__title">Comments</h3>
+
+                    <p>{detail.comment || ""}</p>
+                  </Box>
+                )}
+                <Toaster />
+              </>
             ) : (
-              <Box className=" details__info details__info__like">
-                Add to Favourites
-                <FavoriteBorderIcon
+              <Box className=" details__info">
+                <Box
+                  className="details__button__container"
                   onClick={() => handleLike(detail)}
-                  className="details__heart-icon"
-                />
+                >
+                  {" "}
+                  Add to Favourites
+                  <FavoriteBorderIcon className="details__icon details__icon__heart" />{" "}
+                </Box>
+
+                <Toaster />
               </Box>
             )}
 
@@ -33,7 +83,7 @@ function Detail({ detail, handleLike, setButtonPopUp }) {
               <h3 className="details__title">User Details</h3>
               <p>Name : {detail.user.name || "Undefined"}</p>
               <p>Date: {moment(date).format("MMM Do YY") || "Undefined"}</p>
-              <p>Location : {detail.location.country || "Undefined"}</p>
+              {/* <p>Location : {detail.location.country || "Undefined"}</p> */}
             </Box>
             <Box className="details__info">
               <h3 className="details__title">Camera Details</h3>
@@ -42,13 +92,10 @@ function Detail({ detail, handleLike, setButtonPopUp }) {
               <p>ISO: {detail.exif.iso || "Undefined"}</p>
             </Box>
           </Box>
-          <button
+          <ClearIcon
             onClick={() => setButtonPopUp(false)}
-            className="details__button"
-            type="button"
-          >
-            x
-          </button>
+            className="details__icon details__icon-clear"
+          />
         </Box>
       ) : (
         ""

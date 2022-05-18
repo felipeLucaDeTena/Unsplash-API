@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 function sortPhotos(data, setData, sortType) {
   const newData = [...data];
   const types = {
@@ -16,3 +18,9 @@ function sortPhotos(data, setData, sortType) {
 }
 
 export default sortPhotos;
+
+export const notifyDelete = () => toast("Photo was Deleted.");
+
+export const notifyUpdate = () => toast("Comment was updated");
+
+export const notifyAdd = () => toast("Photo was Added");

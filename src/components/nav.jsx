@@ -3,8 +3,17 @@ import React from "react";
 import { RiCameraLensLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import nav from "../styles/nav.scss";
+import SearchBar from "./searchbar";
+import SelectComponent from "./select";
 
-function Nav() {
+function Nav({
+  searchTerm,
+  setSearchTerm,
+  data,
+  setData,
+  sortType,
+  setSortType,
+}) {
   return (
     <nav className="nav">
       <Link style={{ color: "white", textDecoration: "none" }} to="/home">
@@ -13,6 +22,16 @@ function Nav() {
           <h1>Splash</h1>
         </Box>
       </Link>
+      <div id="search" className="search__container">
+        <SearchBar
+          searchTearm={searchTerm}
+          setSearchTearm={setSearchTerm}
+          data={data}
+          setData={setData}
+        />
+        <SelectComponent sortType={sortType} setSortType={setSortType} />
+      </div>
+
       <Box className="nav__links__container">
         <Link className="nav__links" to="/albums">
           <span>Albums</span>

@@ -4,7 +4,7 @@ import { HashLink } from "react-router-hash-link";
 
 function RandomPhoto({ random }) {
   return (
-    <HashLink smooth to="/home/#search">
+    <HashLink smooth to="/home/#photolist">
       {random && (
         <Box className="home__randomphoto__container">
           <Box

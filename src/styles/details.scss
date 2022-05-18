@@ -1,14 +1,43 @@
 .details {
-  height: 40vw;
-  width: 60vw;
+  height: 45vw;
+  width: 70vw;
   background-color: rgba(0, 0, 0, 0.725);
   display: flex;
   align-items: center;
   border: 4px solid darksalmon;
-  &__heart-icon {
-    margin-left: 30px;
-    &:hover {
+  &__button {
+    &__container {
       color: darksalmon;
+      &:hover {
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+  &__edit {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 1.2rem;
+  }
+  &__icon {
+    color: darksalmon;
+    transform: scale(120%);
+    margin: 0 5px;
+    &:hover {
+      color: white;
+    }
+
+    &-clear {
+      display: block;
+      margin: 10px 10px auto auto;
+    }
+    &__container {
+      width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      margin: 20px 0 0 auto;
     }
   }
   &__img {
@@ -20,10 +49,25 @@
     font-size: 1.2rem;
     margin-left: 20%;
     width: 100%;
-    margin-bottom: 20%;
+    margin-bottom: 10%;
+    &__container {
+      overflow: scroll;
+      width: 90%;
+      height: 85%;
+    }
+    &__delete {
+      &:hover {
+        color: rgb(247, 247, 247);
+        cursor: pointer;
+      }
+    }
     &__like {
-      display: flex;
-      align-items: center;
+      color: darksalmon;
+      font-size: 2rem;
+      &:hover {
+        color: rgb(247, 247, 247);
+        cursor: pointer;
+      }
     }
   }
   &__title {
@@ -37,4 +81,7 @@
     border: 1px solid darksalmon;
     margin: 10px 10px auto auto;
   }
+}
+.delete__container {
+  color: white;
 }
