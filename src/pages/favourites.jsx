@@ -7,25 +7,12 @@ import sortPhotos, { notifyDelete } from "../helpers/sort";
 import Popup from "../components/popup";
 import FavouriteDetails from "../components/details/favouritedetails";
 
-function Favourites({ setData, sortType, data }) {
+function Favourites({ setData, sortType, data, page }) {
   const [detail, setDetail] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [buttonPopUp, setButtonPopUp] = useState(false);
   const [photoId, setPhotoId] = useState("");
-  const photoState = useSelector((state) => state.photos);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    api.getFavoritePhotos().then((resp) => {
-      dispatch(actions.loadFavourites(resp.data));
-      setData(photoState.favPhotos);
-    });
-  }, [dispatch, detail]);
-
-  useEffect(() => {
-    setData(photoState.favPhotos);
-    sortPhotos(data, setData, sortType);
-  }, [sortType]);
 
   const handleDelete = (photo) => {
     api.deleteFavoritePhoto(photo.id).then(() => {
@@ -36,6 +23,7 @@ function Favourites({ setData, sortType, data }) {
   };
   const handleUpdate = (ev, photo) => {
     ev.preventDefault();
+    console.log(ev);
     api
       .commentFavoritePhoto(photo.id, { comment: ev.target.value })
       .then(() => {
@@ -60,6 +48,9 @@ function Favourites({ setData, sortType, data }) {
           setPhotoId={setPhotoId}
           setButtonPopUp={setButtonPopUp}
           data={data}
+          page={page}
+          sortType={sortType}
+          setData={setData}
         />
       )}
       <Popup trigger={buttonPopUp}>

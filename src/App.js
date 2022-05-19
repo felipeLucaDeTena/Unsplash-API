@@ -9,7 +9,7 @@ import Favourites from "./pages/favourites";
 import Home from "./pages/home";
 
 function App() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState([]);
 

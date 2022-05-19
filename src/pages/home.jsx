@@ -10,24 +10,15 @@ import HomeDetails from "../components/details/homedetails";
 import home from "../styles/home.scss";
 import { formatData } from "../helpers/format";
 
-function Home({ setData, searchTerm, sortType, data }) {
+function Home({ setData, searchTerm, sortType, data, page }) {
   const [photoId, setPhotoId] = useState("");
   const [buttonPopUp, setButtonPopUp] = useState(false);
   const [random, setRandom] = useState("");
   const dispatch = useDispatch();
-  const photoState = useSelector((state) => state.photos);
 
   useEffect(() => {
     api.getRandomPhotos().then((resp) => setRandom(resp.data));
-    api.getHomePhotos().then((resp) => {
-      dispatch(actions.load(resp.data));
-      setData(photoState.apiPhotos);
-    });
-  }, [dispatch]);
-
-  useEffect(() => {
-    sortPhotos(data, setData, sortType);
-  }, [sortType]);
+  }, []);
 
   const handleLike = (photo) => {
     console.log(photo);
@@ -47,7 +38,10 @@ function Home({ setData, searchTerm, sortType, data }) {
             setPhotoId={setPhotoId}
             setButtonPopUp={setButtonPopUp}
             handleLike={handleLike}
+            sortType={sortType}
             data={data}
+            page={page}
+            setData={setData}
           />
         </div>
       )}

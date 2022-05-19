@@ -4,23 +4,51 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadIcon from "@mui/icons-material/Download";
 import { Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import sortPhotos from "../helpers/sort";
+import * as api from "../services/api";
+import * as actions from "../redux/action-creators";
 
 function PhotosList({
   setPhotoId,
   setButtonPopUp,
-  data,
   handleLike,
   handleDelete,
   isEditing,
   toggleEditing,
   handleUpdate,
+  sortType,
+  page,
 }) {
   const handleClick = (photo) => {
     setPhotoId(photo.id);
     setButtonPopUp(true);
   };
+  const photoState = useSelector(
+    page === "home"
+      ? (state) => state.photos.apiPhotos
+      : (state) => state.photos.favPhotos
+  );
+  const [data, setData] = useState([]);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    page === "home"
+      ? api.getHomePhotos().then((resp) => {
+          dispatch(actions.load(resp.data));
+          setData(photoState);
+        })
+      : api.getFavoritePhotos().then((resp) => {
+          dispatch(actions.loadFavourites(resp.data));
+          setData(photoState);
+        });
+  }, [dispatch, data]);
+
+  useEffect(() => {
+    sortPhotos(photoState, setData, sortType);
+  }, [sortType, photoState]);
 
   return (
     data && (
