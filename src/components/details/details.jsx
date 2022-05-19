@@ -5,7 +5,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import EditIcon from "@mui/icons-material/Edit";
 import ClearIcon from "@mui/icons-material/Clear";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Toaster } from "react-hot-toast";
 import details from "../../styles/details.scss";
 
 function Detail({
@@ -18,6 +17,7 @@ function Detail({
   handleUpdate,
 }) {
   const date = new Date(detail.created_at);
+  console.log(detail);
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
@@ -62,7 +62,6 @@ function Detail({
                     <p>{detail.comment || ""}</p>
                   </Box>
                 )}
-                <Toaster />
               </>
             ) : (
               <Box className=" details__info">
@@ -74,22 +73,21 @@ function Detail({
                   Add to Favourites
                   <FavoriteBorderIcon className="details__icon details__icon__heart" />{" "}
                 </Box>
-
-                <Toaster />
               </Box>
             )}
 
             <Box className="details__info">
-              <h3 className="details__title">User Details</h3>
-              <p>Name : {detail.user.name || "Undefined"}</p>
-              <p>Date: {moment(date).format("MMM Do YY") || "Undefined"}</p>
-              {/* <p>Location : {detail.location.country || "Undefined"}</p> */}
+              <h3 className="details__title">Photo Details</h3>
+              <p>Created: {moment(date).format("MMM Do YY")}</p>
+              <p>Location: {detail.location.country || "undefined"}</p>
+              <p>Likes: {detail.likes}</p>
+              <p>Size: {`${detail.height}x${detail.width}`}</p>
             </Box>
             <Box className="details__info">
-              <h3 className="details__title">Camera Details</h3>
-              <p>Camera : {detail.exif.name || "Undefined"}</p>
-              <p>Exposure : {detail.exif.exposure_time || "Undefined"}</p>
-              <p>ISO: {detail.exif.iso || "Undefined"}</p>
+              <h3 className="details__title">User Details</h3>
+              <p>Name: {detail.user.name}</p>
+              <p>Instagram: {detail.user.instagram_username}</p>
+              <p>Portfolio: {detail.user.portfolio_url}</p>
             </Box>
           </Box>
           <ClearIcon

@@ -1,37 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-hot-toast";
 import PhotosList from "../components/photoslist";
 import * as actions from "../redux/action-creators";
 import * as api from "../services/api";
-import SearchBar from "../components/searchbar";
-import SelectComponent from "../components/select";
-import sortPhotos, { notifyDelete, notifyUpdate } from "../helpers/sort";
+import sortPhotos, { notifyDelete } from "../helpers/sort";
 import Popup from "../components/popup";
 import FavouriteDetails from "../components/details/favouritedetails";
 
-function Favourites({
-  setData,
-  searchTerm,
-  setSearchTerm,
-  sortType,
-  setSortType,
-}) {
+function Favourites({ setData, sortType, data }) {
+  const [detail, setDetail] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [buttonPopUp, setButtonPopUp] = useState(false);
   const [photoId, setPhotoId] = useState("");
   const photoState = useSelector((state) => state.photos);
   const dispatch = useDispatch();
+
   useEffect(() => {
     api.getFavoritePhotos().then((resp) => {
       dispatch(actions.loadFavourites(resp.data));
+      setData(photoState.favPhotos);
     });
-  }, [dispatch]);
-  const data = photoState.favPhotos;
+  }, [dispatch, detail]);
 
   useEffect(() => {
+    setData(photoState.favPhotos);
     sortPhotos(data, setData, sortType);
-  }, [searchTerm, sortType]);
+  }, [sortType]);
 
   const handleDelete = (photo) => {
     api.deleteFavoritePhoto(photo.id).then(() => {
@@ -46,7 +40,6 @@ function Favourites({
       .commentFavoritePhoto(photo.id, { comment: ev.target.value })
       .then(() => {
         dispatch(actions.updateFavourite(photo));
-        notifyUpdate();
       });
   };
 
@@ -56,7 +49,7 @@ function Favourites({
 
   return (
     <>
-      <div>Your photos</div>
+      <h2 className="favourites__title">Favourite photos</h2>
       {data && (
         <PhotosList
           setIsEditing={setIsEditing}
@@ -71,6 +64,8 @@ function Favourites({
       )}
       <Popup trigger={buttonPopUp}>
         <FavouriteDetails
+          detail={detail}
+          setDetail={setDetail}
           setIsEditing={setIsEditing}
           isEditing={isEditing}
           toggleEditing={toggleEditing}

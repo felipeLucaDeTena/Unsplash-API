@@ -22,8 +22,6 @@ export function photosReducer(
         favPhotos: [...state.favPhotos, action.payload],
       };
     case actionTypes.deleteFavourite:
-      console.log(action.payload);
-      console.log(state.favPhotos);
       return {
         ...state,
         favPhotos: state.favPhotos.filter(
@@ -31,14 +29,10 @@ export function photosReducer(
         ),
       };
     case actionTypes.updateFavourite:
-      console.log(action.payload);
+      console.log("actionpay", action.payload);
+      console.log("state", state.favPhotos);
 
-      return {
-        ...state,
-        favPhotos: state.favPhotos.map((item) =>
-          item.id === action.payload.id ? action.payload : item
-        ),
-      };
+      return { ...state, ...action.payload };
 
     default:
       return state;

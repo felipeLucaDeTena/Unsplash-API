@@ -4,16 +4,23 @@ export function formatData(object) {
     isFavourite: true,
     comment: "",
     created_at: object.created_at || "undefined",
+    likes: object.likes,
     urls: {
       small: object.urls.small || "undefined",
     },
     user: {
+      username: object.user.username,
       name: object.user.name || "undefined",
+      portfolio_url: object.user.portfolio_url || "undefined",
+      instagram_username: object.user.instagram_username || "undefined",
     },
-    exif: {
-      name: object.exif.name || "undefined",
-      exposure_time: object.exposure_time || "undefined",
-      iso: object.exif.iso || "undefined",
+    links: {
+      download_location: object.links.download_location,
     },
+    location: {
+      country: object.user.location || "undefined",
+    },
+    height: object.height,
+    width: object.width,
   };
 }

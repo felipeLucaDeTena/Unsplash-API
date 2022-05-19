@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/footer";
 import Nav from "./components/nav";
@@ -10,6 +12,7 @@ function App() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState([]);
+
   return (
     <div className="App">
       <Nav
@@ -28,6 +31,8 @@ function App() {
               setData={setData}
               searchTerm={searchTerm}
               sortType={sortType}
+              data={data}
+              page="home"
             />
           }
         />
@@ -38,6 +43,8 @@ function App() {
               searchTerm={searchTerm}
               setData={setData}
               sortType={sortType}
+              data={data}
+              page="favourites"
             />
           }
         />
@@ -45,6 +52,7 @@ function App() {
       </Routes>
 
       <Footer />
+      <Toaster />
     </div>
   );
 }
