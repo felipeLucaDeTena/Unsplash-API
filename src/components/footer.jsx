@@ -4,6 +4,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import React from "react";
+
 import { Link } from "react-router-dom";
 import * as social from "../helpers/socialurl";
 import footer from "../styles/footer.scss";
@@ -11,29 +12,52 @@ import footer from "../styles/footer.scss";
 function Footer() {
   return (
     <Box className="footer">
-      <Box />
       <Box className="footer__container">
-        <h2 className="Footer__title">Splash</h2>
+        <h2 className="footer__title">Splash</h2>
+        <RiCameraLensLine className="footer__logo" />
+        <p />
+        <p />
       </Box>
       <Box className="footer__container">
-        <RiCameraLensLine className="footer__logo" />
         Follow us on our social media
-        <Box className="footer">
-          <Link to={social.FACEBOOK_URL}>
-            <FacebookIcon />
-          </Link>
-          <Link to={social.TWITTER_URL}>
-            <TwitterIcon />
-          </Link>
-          <Link to={social.INSTAGRAM_URL}>
-            <InstagramIcon />
-          </Link>
+        <Box className="footer__social">
+          <a
+            className="footer__social__links"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={social.FACEBOOK_URL}
+          >
+            <FacebookIcon className="footer__icons" />
+          </a>
+          <a
+            className="footer__social__links"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={social.TWITTER_URL}
+          >
+            <TwitterIcon className="footer__icons" />
+          </a>
+          <a
+            className="footer__social__links"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={social.INSTAGRAM_URL}
+          >
+            <InstagramIcon className="footer__icons" />
+          </a>
         </Box>
       </Box>
-      <Box className="footer__container">
-        <p>Splash</p>
+      <Box className=" footer__container footer__container__links">
+        <Link className="footer__link" to="/about">
+          About
+        </Link>
+        <Link className="footer__link" to="/conditions">
+          Conditions
+        </Link>
+        <Link className="footer__link" to="/contact">
+          Contact
+        </Link>
       </Box>
-      <Box />
     </Box>
   );
 }
