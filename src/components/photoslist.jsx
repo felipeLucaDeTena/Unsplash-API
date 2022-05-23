@@ -21,6 +21,8 @@ function PhotosList({
   handleUpdate,
   sortType,
   page,
+  data,
+  setData,
 }) {
   const handleClick = (photo) => {
     setPhotoId(photo.id);
@@ -31,7 +33,6 @@ function PhotosList({
       ? (state) => state.photos.apiPhotos
       : (state) => state.photos.favPhotos
   );
-  const [data, setData] = useState([]);
 
   const dispatch = useDispatch();
 
