@@ -10,11 +10,12 @@ import HomeDetails from "../components/details/homedetails";
 import home from "../styles/home.scss";
 import { formatData } from "../helpers/format";
 
-function Home({ setData, searchTerm, sortType, data, page }) {
+function Home({ searchTerm, sortType, page }) {
   const [photoId, setPhotoId] = useState("");
   const [buttonPopUp, setButtonPopUp] = useState(false);
   const [random, setRandom] = useState("");
   const dispatch = useDispatch();
+  const [data, setData] = useState("");
 
   useEffect(() => {
     api.getRandomPhotos().then((resp) => setRandom(resp.data));
@@ -32,19 +33,19 @@ function Home({ setData, searchTerm, sortType, data, page }) {
   return (
     <>
       <RandomPhoto random={random} />
-      {data && (
-        <div id="photolist">
-          <PhotosList
-            setPhotoId={setPhotoId}
-            setButtonPopUp={setButtonPopUp}
-            handleLike={handleLike}
-            sortType={sortType}
-            data={data}
-            page={page}
-            setData={setData}
-          />
-        </div>
-      )}
+
+      <div id="photolist">
+        <PhotosList
+          setPhotoId={setPhotoId}
+          setButtonPopUp={setButtonPopUp}
+          handleLike={handleLike}
+          sortType={sortType}
+          data={data}
+          page={page}
+          setData={setData}
+        />
+      </div>
+
       <Popup trigger={buttonPopUp}>
         <HomeDetails
           photoId={photoId}

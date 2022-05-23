@@ -37,21 +37,21 @@ function Favourites({ setData, sortType, data, page }) {
   return (
     <>
       <h2 className="favourites__title">Favourite photos</h2>
-      {data && (
-        <PhotosList
-          setIsEditing={setIsEditing}
-          isEditing={isEditing}
-          toggleEditing={toggleEditing}
-          handleUpdate={handleUpdate}
-          handleDelete={handleDelete}
-          setPhotoId={setPhotoId}
-          setButtonPopUp={setButtonPopUp}
-          data={data}
-          page={page}
-          sortType={sortType}
-          setData={setData}
-        />
-      )}
+
+      <PhotosList
+        setIsEditing={setIsEditing}
+        isEditing={isEditing}
+        toggleEditing={toggleEditing}
+        handleUpdate={handleUpdate}
+        handleDelete={handleDelete}
+        setPhotoId={setPhotoId}
+        setButtonPopUp={setButtonPopUp}
+        data={data}
+        page={page}
+        sortType={sortType}
+        setData={setData}
+      />
+
       <Popup trigger={buttonPopUp}>
         <FavouriteDetails
           detail={detail}
