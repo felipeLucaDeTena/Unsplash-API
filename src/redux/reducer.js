@@ -32,8 +32,10 @@ export function photosReducer(
       console.log("actionpay", action.payload);
       console.log("state", state.favPhotos);
 
-      return { ...state, ...action.payload };
-
+      return {
+        ...state,
+        ...action.payload,
+      };
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { getFavouriteDetail } from "../../services/api";
 import Detail from "./details";
 
@@ -12,10 +13,12 @@ function FavouriteDetails({
   detail,
   setDetail,
 }) {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getFavouriteDetail(photoId).then((resp) => setDetail(resp.data));
-  }, [detail]);
-  console.log(detail);
+  }, [dispatch, isEditing]);
+
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>

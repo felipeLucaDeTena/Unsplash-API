@@ -7,6 +7,7 @@ export function formatData(object) {
     likes: object.likes,
     urls: {
       small: object.urls.small || "undefined",
+      full: object.urls.full || "undefined",
     },
     user: {
       username: object.user.username,
@@ -14,9 +15,7 @@ export function formatData(object) {
       portfolio_url: object.user.portfolio_url || "undefined",
       instagram_username: object.user.instagram_username || "undefined",
     },
-    links: {
-      download_location: object.links.download_location,
-    },
+
     location: {
       country: object.user.location || "undefined",
     },

@@ -10,17 +10,16 @@ import Home from "./pages/home";
 
 function App() {
   const [data, setData] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [sortType, setSortType] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   return (
     <div className="App">
       <Nav
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
         sortType={sortType}
         setSortType={setSortType}
         setData={setData}
+        isSearching={isSearching}
       />
       <Routes>
         <Route path="/home/:id" element={<Home />} />
@@ -29,10 +28,10 @@ function App() {
           element={
             <Home
               setData={setData}
-              searchTerm={searchTerm}
               sortType={sortType}
               data={data}
               page="home"
+              setIsSearching={setIsSearching}
             />
           }
         />
@@ -40,11 +39,11 @@ function App() {
           path="/favourites"
           element={
             <Favourites
-              searchTerm={searchTerm}
               setData={setData}
               sortType={sortType}
               data={data}
               page="favourites"
+              setIsSearching={setIsSearching}
             />
           }
         />

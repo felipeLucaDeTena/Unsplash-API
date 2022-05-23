@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-function sortPhotos(data, setData, sortType) {
+function sortPhotos(data, sortType) {
   const newData = [...data];
   const types = {
     likes: "likes",
@@ -15,7 +15,7 @@ function sortPhotos(data, setData, sortType) {
       )
     : newData.sort((a, b) => b[sortProperty] - a[sortProperty]);
   console.log("im sort data", newData);
-  setData(newData);
+  return newData;
 }
 
 export default sortPhotos;

@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { saveAs } from "file-saver";
 import sortPhotos from "../helpers/sort";
 import * as api from "../services/api";
 import * as actions from "../redux/action-creators";
@@ -38,16 +39,15 @@ function PhotosList({
     page === "home"
       ? api.getHomePhotos().then((resp) => {
           dispatch(actions.load(resp.data));
-          setData(photoState);
         })
       : api.getFavoritePhotos().then((resp) => {
           dispatch(actions.loadFavourites(resp.data));
-          setData(photoState);
         });
-  }, [dispatch, data]);
+  }, [dispatch, toggleEditing]);
 
   useEffect(() => {
-    sortPhotos(photoState, setData, sortType);
+    const newData = sortPhotos(photoState, sortType);
+    setData(newData);
   }, [sortType, photoState]);
 
   return (
@@ -102,7 +102,10 @@ function PhotosList({
                       className="list__icon"
                       onClick={() => toggleEditing()}
                     />
-                    <DownloadIcon className="list__icon" />
+                    <DownloadIcon
+                      onClick={() => saveAs(photo.urls.full, `${photo.id}.jpg`)}
+                      className="list__icon"
+                    />
                   </div>
                 ) : (
                   <FavoriteBorderIcon

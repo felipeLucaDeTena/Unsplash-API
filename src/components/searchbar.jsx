@@ -1,8 +1,9 @@
 import { TextField } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
+import useDebounce from "../helpers/usedebounce";
 import { getQueryPhotos } from "../services/api";
 
-function SearchBar({ setData, data }) {
+function SearchBar({ setData }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -39,18 +40,4 @@ function SearchBar({ setData, data }) {
   );
 }
 
-// Hook
-function useDebounce(value, delay) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-  return debouncedValue;
-}
 export default SearchBar;

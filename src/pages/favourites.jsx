@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import PhotosList from "../components/photoslist";
 import * as actions from "../redux/action-creators";
 import * as api from "../services/api";
-import sortPhotos, { notifyDelete } from "../helpers/sort";
+import { notifyDelete } from "../helpers/sort";
 import Popup from "../components/popup";
 import FavouriteDetails from "../components/details/favouritedetails";
 
@@ -16,18 +16,17 @@ function Favourites({ setData, sortType, data, page }) {
 
   const handleDelete = (photo) => {
     api.deleteFavoritePhoto(photo.id).then(() => {
-      console.log(photo);
       dispatch(actions.deleteFavourite(photo));
       notifyDelete();
     });
   };
   const handleUpdate = (ev, photo) => {
     ev.preventDefault();
-    console.log(ev);
+    console.log("this is event", ev);
     api
       .commentFavoritePhoto(photo.id, { comment: ev.target.value })
-      .then(() => {
-        dispatch(actions.updateFavourite(photo));
+      .then((resp) => {
+        dispatch(actions.updateFavourite(resp.data));
       });
   };
 

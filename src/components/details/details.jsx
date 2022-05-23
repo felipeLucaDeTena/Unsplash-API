@@ -17,7 +17,7 @@ function Detail({
   handleUpdate,
 }) {
   const date = new Date(detail.created_at);
-  console.log(detail);
+
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
