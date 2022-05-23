@@ -10,6 +10,8 @@ import { saveAs } from "file-saver";
 import sortPhotos from "../helpers/sort";
 import * as api from "../services/api";
 import * as actions from "../redux/action-creators";
+import useDebounce from "../helpers/usedebounce";
+import RandomPhoto from "./randomphoto";
 
 function PhotosList({
   setPhotoId,
@@ -23,7 +25,13 @@ function PhotosList({
   page,
   data,
   setData,
+  searchTerm,
 }) {
+  const [random, setRandom] = useState("");
+  useEffect(() => {
+    api.getRandomPhotos().then((resp) => setRandom(resp.data));
+  }, []);
+
   const handleClick = (photo) => {
     setPhotoId(photo.id);
     setButtonPopUp(true);
@@ -46,80 +54,111 @@ function PhotosList({
         });
   }, [dispatch, toggleEditing]);
 
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
   useEffect(() => {
     const newData = sortPhotos(photoState, sortType);
     setData(newData);
   }, [sortType, photoState]);
 
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      if (page === "home") {
+        api.getQueryPhotos(debouncedSearchTerm).then((resp) => {
+          console.log(resp.data);
+          dispatch(actions.load(resp.data.results));
+        });
+        // } else if (page === "favourites") {
+        //   const propsToCheck = ["comment"];
+        //   data.filter((o) =>
+        //     propsToCheck.some((k) =>
+        //       String(o[k])
+        //         .toLowerCase()
+        //         .includes(debouncedSearchTerm.toLowerCase())
+        //     )
+        //   );
+        //   console.log(data);
+      }
+    } else {
+      setData(photoState);
+    }
+  }, [debouncedSearchTerm]);
+
   return (
-    data && (
-      <Masonry sx={{ margin: 0 }} columns={4} spacing={2}>
-        {data.map((photo) => (
-          <Box
-            onDoubleClick={() => handleClick(photo)}
-            key={photo.id}
-            className="home__img__container"
-          >
+    <>
+      {page === "home" ? <RandomPhoto random={random} /> : ""}
+
+      {data && (
+        <Masonry sx={{ margin: 0 }} columns={4} spacing={2}>
+          {data.map((photo) => (
             <Box
-              className="home__img"
-              component="img"
-              alt="The house from the offer."
-              src={photo.urls.small}
-            />
-            <Box className="home__img__overlay">
-              <p style={{ margin: "20% 0 0 0" }}>By</p>
-              <p>{photo.user.name}</p>
-              {photo.isFavourite && (
-                <Box className="home__info">
-                  {" "}
-                  {isEditing ? (
-                    <form>
-                      <input
-                        className="home__edit"
-                        type="text"
-                        onChange={(ev) => handleUpdate(ev, photo)}
-                        defaultValue={photo.comment}
-                      />
-                    </form>
-                  ) : (
-                    <p className="home__comment">{photo.comment || ""}</p>
-                  )}{" "}
-                </Box>
-              )}
+              onDoubleClick={() => handleClick(photo)}
+              key={photo.id}
+              className="home__img__container"
+            >
               <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  margin: "auto  20px 20px auto",
-                }}
-              >
-                {photo.isFavourite ? (
-                  <div className="delete__container">
-                    <DeleteIcon
-                      className="list__icon"
-                      onClick={() => handleDelete(photo)}
-                    />
-                    <EditIcon
-                      className="list__icon"
-                      onClick={() => toggleEditing()}
-                    />
-                    <DownloadIcon
-                      onClick={() => saveAs(photo.urls.full, `${photo.id}.jpg`)}
-                      className="list__icon"
-                    />
-                  </div>
-                ) : (
-                  <FavoriteBorderIcon
-                    onClick={() => handleLike(photo)}
-                    className="list__icon"
-                  />
+                className="home__img"
+                component="img"
+                alt="The house from the offer."
+                src={photo.urls.small}
+              />
+              <Box className="home__img__overlay">
+                <p style={{ margin: "20% 0 0 0" }}>By</p>
+                <p>{photo.user.name}</p>
+                {photo.isFavourite && (
+                  <Box className="home__info">
+                    {" "}
+                    {isEditing ? (
+                      <form>
+                        <input
+                          className="home__edit"
+                          type="text"
+                          onChange={(ev) => handleUpdate(ev, photo)}
+                          defaultValue={photo.comment}
+                        />
+                      </form>
+                    ) : (
+                      <p className="home__comment">{photo.comment || ""}</p>
+                    )}{" "}
+                  </Box>
                 )}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "auto  20px 20px auto",
+                  }}
+                >
+                  {photo.isFavourite ? (
+                    <div className="delete__container">
+                      <DeleteIcon
+                        className="list__icon"
+                        onClick={() => handleDelete(photo)}
+                      />
+                      <EditIcon
+                        className="list__icon"
+                        onClick={() => toggleEditing()}
+                      />
+                      <DownloadIcon
+                        onClick={() =>
+                          saveAs(photo.urls.full, `${photo.id}.jpg`)
+                        }
+                        className="list__icon"
+                      />
+                    </div>
+                  ) : (
+                    <FavoriteBorderIcon
+                      onClick={() => handleLike(photo)}
+                      className="list__icon"
+                    />
+                  )}
+                </Box>
               </Box>
             </Box>
-          </Box>
-        ))}
-      </Masonry>
-    )
+          ))}
+        </Masonry>
+      )}
+    </>
   );
 }
 

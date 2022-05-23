@@ -14,7 +14,7 @@ function sortPhotos(data, sortType) {
           new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
       )
     : newData.sort((a, b) => b[sortProperty] - a[sortProperty]);
-  console.log("im sort data", newData);
+
   return newData;
 }
 

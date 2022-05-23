@@ -13,13 +13,9 @@ import { formatData } from "../helpers/format";
 function Home({ searchTerm, sortType, page }) {
   const [photoId, setPhotoId] = useState("");
   const [buttonPopUp, setButtonPopUp] = useState(false);
-  const [random, setRandom] = useState("");
+
   const dispatch = useDispatch();
   const [data, setData] = useState("");
-
-  useEffect(() => {
-    api.getRandomPhotos().then((resp) => setRandom(resp.data));
-  }, []);
 
   const handleLike = (photo) => {
     console.log(photo);
@@ -32,8 +28,6 @@ function Home({ searchTerm, sortType, page }) {
 
   return (
     <>
-      <RandomPhoto random={random} />
-
       <div id="photolist">
         <PhotosList
           setPhotoId={setPhotoId}
@@ -43,6 +37,7 @@ function Home({ searchTerm, sortType, page }) {
           data={data}
           page={page}
           setData={setData}
+          searchTerm={searchTerm}
         />
       </div>
 

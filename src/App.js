@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/footer";
 import Nav from "./components/nav";
-import Albums from "./pages/albums";
 import Favourites from "./pages/favourites";
 import Home from "./pages/home";
 
@@ -12,6 +11,7 @@ function App() {
   const [data, setData] = useState("");
   const [sortType, setSortType] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="App">
@@ -19,7 +19,7 @@ function App() {
         sortType={sortType}
         setSortType={setSortType}
         setData={setData}
-        isSearching={isSearching}
+        setSearchTerm={setSearchTerm}
       />
       <Routes>
         <Route path="/home/:id" element={<Home />} />
@@ -32,6 +32,7 @@ function App() {
               data={data}
               page="home"
               setIsSearching={setIsSearching}
+              searchTerm={searchTerm}
             />
           }
         />
@@ -43,11 +44,10 @@ function App() {
               sortType={sortType}
               data={data}
               page="favourites"
-              setIsSearching={setIsSearching}
+              searchTerm={searchTerm}
             />
           }
         />
-        <Route path="/albums" element={<Albums />} />
       </Routes>
 
       <Footer />
