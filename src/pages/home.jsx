@@ -28,7 +28,7 @@ function Home({ searchTerm, sortType, page }) {
 
   return (
     <>
-      <div id="photolist">
+      <div>
         <PhotosList
           setPhotoId={setPhotoId}
           setButtonPopUp={setButtonPopUp}

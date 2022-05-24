@@ -27,6 +27,8 @@ function PhotosList({
   setData,
   searchTerm,
 }) {
+  const [isSearching, setIsSearching] = useState(false);
+
   const [random, setRandom] = useState("");
   useEffect(() => {
     api.getRandomPhotos().then((resp) => setRandom(resp.data));
@@ -59,37 +61,45 @@ function PhotosList({
   useEffect(() => {
     const newData = sortPhotos(photoState, sortType);
     setData(newData);
-  }, [sortType, photoState]);
+  }, [sortType, photoState, debouncedSearchTerm]);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
       if (page === "home") {
+        setIsSearching(true);
+        console.log("home");
         api.getQueryPhotos(debouncedSearchTerm).then((resp) => {
-          console.log(resp.data);
           dispatch(actions.load(resp.data.results));
         });
-        // } else if (page === "favourites") {
-        //   const propsToCheck = ["comment"];
-        //   data.filter((o) =>
-        //     propsToCheck.some((k) =>
-        //       String(o[k])
-        //         .toLowerCase()
-        //         .includes(debouncedSearchTerm.toLowerCase())
-        //     )
-        //   );
-        //   console.log(data);
       }
     } else {
       setData(photoState);
+      setIsSearching(false);
     }
   }, [debouncedSearchTerm]);
 
+  // if (page === "favourites") {
+  //   console.log("favs");
+  //   console.log(debouncedSearchTerm);
+
+  //   // if (debouncedSearchTerm) {
+  //   //   // const newData = [...data];
+  //   //   const propsToCheck = ["comment"];
+  //   //   // newData.filter((o) =>
+  //   //   //   propsToCheck.some((k) =>
+  //   //   //     String(o[k]).toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+  //   //   //   )
+  //   //   // );
+  //   //   // console.log(newData);
+  //   // }
+  // }
+
   return (
     <>
-      {page === "home" ? <RandomPhoto random={random} /> : ""}
+      {page === "home" && !isSearching ? <RandomPhoto random={random} /> : ""}
 
       {data && (
-        <Masonry sx={{ margin: 0 }} columns={4} spacing={2}>
+        <Masonry id="photolist" sx={{ margin: 0 }} columns={4} spacing={2}>
           {data.map((photo) => (
             <Box
               onDoubleClick={() => handleClick(photo)}

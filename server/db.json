@@ -25,30 +25,6 @@
       "width": 12800
     },
     {
-      "id": "JwKpIz5Oi-s",
-      "isFavourite": true,
-      "comment": "forest",
-      "created_at": "2022-05-19T04:46:49-04:00",
-      "likes": 4,
-      "urls": {
-        "small": "https://images.unsplash.com/photo-1652949841801-cd0e233422e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMjcwOTR8MHwxfGFsbHwyfHx8fHx8Mnx8MTY1MzA0MjQ2Mg&ixlib=rb-1.2.1&q=80&w=400"
-      },
-      "user": {
-        "username": "iriser",
-        "name": "Irina Iriser",
-        "portfolio_url": "https://linktr.ee/Iriser",
-        "instagram_username": "iriser_ph"
-      },
-      "links": {
-        "download_location": "https://api.unsplash.com/photos/JwKpIz5Oi-s/download?ixid=MnwzMjcwOTR8MHwxfGFsbHwyfHx8fHx8Mnx8MTY1MzA0MjQ2Mg"
-      },
-      "location": {
-        "country": "Planet Earth"
-      },
-      "height": 6000,
-      "width": 4000
-    },
-    {
       "id": "CEtrlaNI4RQ",
       "isFavourite": true,
       "comment": "mountain",
@@ -75,7 +51,7 @@
     {
       "id": "zF0ekSBJrpw",
       "isFavourite": true,
-      "comment": "gaudi",
+      "comment": "gaud",
       "created_at": "2022-05-19T04:08:05-04:00",
       "likes": 17,
       "urls": {

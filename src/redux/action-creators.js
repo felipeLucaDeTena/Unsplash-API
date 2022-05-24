@@ -1,5 +1,4 @@
 import { actionTypes } from "./action-types";
-import * as api from "../services/api";
 
 export const load = (photos) => ({
   type: actionTypes.load,

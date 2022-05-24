@@ -7,7 +7,7 @@ import { notifyDelete } from "../helpers/sort";
 import Popup from "../components/popup";
 import FavouriteDetails from "../components/details/favouritedetails";
 
-function Favourites({ setData, sortType, data, page }) {
+function Favourites({ searchTerm, setData, sortType, data, page }) {
   const [detail, setDetail] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [buttonPopUp, setButtonPopUp] = useState(false);
@@ -50,6 +50,7 @@ function Favourites({ setData, sortType, data, page }) {
         page={page}
         sortType={sortType}
         setData={setData}
+        searchTerm={searchTerm}
       />
 
       <Popup trigger={buttonPopUp}>
